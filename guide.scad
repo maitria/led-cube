@@ -4,9 +4,9 @@ $fa = 1;
 
 $rows = 2;
 $columns = 2;
-$height = 6;
+$height = 5.5;
 $distance = 16;
-$gutter = 10;
+$gutter = 5;
 
 $led_diameter = 3;
 $led_height = 5;
@@ -42,21 +42,7 @@ module hole() {
 }
 
 module base(rows, columns) {
-    difference() {
-        cube([width(rows), width(columns), $height]);
-        for (n = [0:1]) {
-            translate([n * ((rows - 1) * $distance + 2 * $gutter), -1, $height]) {
-                rotate([-90, 0, 0]) {
-                    cylinder(h = width(columns) + 2, r = $height/2);
-                }
-            }
-            translate([0, n * ((columns - 1) * $distance + 2 * $gutter), $height]) {
-                rotate([0, 90, 0]) {
-                    cylinder(h = width(rows) + 2, r = $height/2);
-                }
-            }
-        }
-    }
+    cube([width(rows), width(columns), $height]);
 }
 
 module tool(rows, columns) {
