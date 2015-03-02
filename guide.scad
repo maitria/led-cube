@@ -22,9 +22,6 @@ function width(holes) = (holes - 1) * $distance + 2 * $gutter;
 function fragments(diameter) = $fn > 0.0 ? max(3.0, $fn) : ceil(max(min(360.0 / $fa, diameter * PI / $fs), 5));
 function snugly(diameter) = diameter / cos(180 / fragments(diameter)) + 2 * $snug_clearance;
 
-echo(3 * PI / $fs);
-echo(360.0 / $fa);
-
 module hole() {
     translate([0, 0, $height - $flange_height]) {
         difference() {
@@ -51,13 +48,8 @@ module tool(rows, columns) {
         for (i = [0:rows - 1]) {
             for (j = [0:columns - 1]) {
                 translate([$gutter + i * $distance, $gutter + j * $distance, 0]) {
-                        hole();
+                    hole();
                 }
-            }
-        }
-        for (i = [0:rows - 1]) {
-            translate([$gutter + i * $distance + $flange_diameter / 2, 0, $height - $lead_diameter]) {
-                    cube([$lead_diameter + 2 * $snug_clearance, width(columns), $lead_diameter]);
             }
         }
     }
