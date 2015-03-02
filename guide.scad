@@ -6,7 +6,7 @@ $rows = 2;
 $columns = 2;
 $height = 5.5;
 $distance = 16;
-$gutter = 5;
+$gutter = 7;
 
 $led_diameter = 3;
 $led_height = 5;
@@ -16,6 +16,9 @@ $flange_flat_diameter = 3.4;
 $snug_clearance = 0.2;
 $lead_diameter = 0.5;
 
+$wire_guide_percent = 0.7;
+$wire_guide_height = 2.5;
+$wire_guide_width = 1.5;
 
 function width(holes) = (holes - 1) * $distance + 2 * $gutter;
 
@@ -42,9 +45,31 @@ module base(rows, columns) {
     cube([width(rows), width(columns), $height]);
 }
 
+module wire_guide() {
+    union() {
+        translate([-snugly($lead_diameter)/2 - $wire_guide_width/2, 0, 0]) {
+            cube([$wire_guide_width, $wire_guide_percent * ($distance - $flange_diameter), $wire_guide_height]);
+        }
+        translate([snugly($lead_diameter)/2 + $wire_guide_width/2, 0, 0]) {
+            cube([$wire_guide_width, $wire_guide_percent * ($distance - $flange_diameter), $wire_guide_height]);
+        }
+    }
+}
+
 module tool(rows, columns) {
     difference() {
-        base(rows, columns);
+        union() {
+            base(rows, columns);
+            for(i = [0:rows - 1]) {
+                for (j = [0:columns - 2]) {
+                    translate([$gutter + i * $distance + snugly($flange_diameter)/2,
+                               $gutter + j * $distance + snugly($flange_diameter)/2 + (1.0 - $wire_guide_percent) / 2 * ($distance - $flange_diameter),
+                               $height]) {
+                        wire_guide();
+                    }
+                }
+            }
+        }
         for (i = [0:rows - 1]) {
             for (j = [0:columns - 1]) {
                 translate([$gutter + i * $distance, $gutter + j * $distance, 0]) {
