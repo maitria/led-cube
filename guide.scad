@@ -18,7 +18,6 @@ $lead_diameter = 0.5;
 
 $wire_guide_distance = 3;
 $wire_guide_height = 2.5;
-$wire_guide_width = 1.5;
 
 function width(holes) = (holes - 1) * $distance + 2 * $gutter;
 
