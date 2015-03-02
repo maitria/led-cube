@@ -4,7 +4,7 @@ $fa = 1;
 
 $rows = 2;
 $columns = 2;
-$height = 5.5;
+$height = 6;
 $distance = 16;
 $gutter = 8;
 
