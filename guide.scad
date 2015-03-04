@@ -41,7 +41,7 @@ module base(rows, columns) {
     cube([extent(rows), extent(columns), $height]);
 }
 
-module tool(rows, columns) {
+module guide(rows, columns) {
     difference() {
         base(rows, columns);
         for (i = [0:rows - 1])
@@ -62,6 +62,6 @@ module tool(rows, columns) {
     }
 }
 
-tool($rows, $columns);
+guide($rows, $columns);
 
 // vim:set sts=4 sw=4 ai et:
