@@ -16,7 +16,7 @@ $flange_flat_diameter = 3.4;
 $snug_clearance = 0.2;
 $lead_diameter = 0.5;
 
-$wire_guide_distance = 3;
+$wire_guide_distance = 5.5;
 $wire_guide_height = 2.5;
 
 function width(holes) = (holes - 1) * $distance + 2 * $gutter;
@@ -55,8 +55,8 @@ module tool(rows, columns) {
             }
         }
         for (j = [0:columns - 1]) {
-            translate([0, $gutter + j * $distance - $distance/2 + $wire_guide_distance, $height - $wire_guide_height]) {
-                cube([width(rows), $distance - 2 * $wire_guide_distance, $wire_guide_height]);
+            translate([0, $gutter + j * $distance - $wire_guide_distance, $height - $wire_guide_height]) {
+                cube([width(rows), 2 * $wire_guide_distance, $wire_guide_height]);
             }
         }
         for (i = [0:rows - 1]) {
