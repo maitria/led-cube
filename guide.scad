@@ -2,8 +2,8 @@
 $fs = 0.25;
 $fa = 1;
 
-$rows = 3;
-$columns = 2;
+$rows = 8;
+$columns = 8;
 $height = 8.5;
 $distance = 15;
 $gutter = 8;
