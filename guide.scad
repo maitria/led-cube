@@ -4,7 +4,6 @@ $fa = 1;
 
 include <config.scad>;
 
-function extent(holes) = (holes - 1) * $distance + 2 * $gutter;
 function fragments(diameter) = $fn > 0.0 ? max(3.0, $fn) : ceil(max(min(360.0 / $fa, diameter * PI / $fs), 5));
 function snugly(diameter) = diameter / cos(180 / fragments(diameter)) + 2 * $snug_clearance;
 
