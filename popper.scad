@@ -4,7 +4,7 @@ $fa = 0.1;
 
 include <config.scad>;
 
-cube([extent($rows), extent($columns), 0.6]);
+cube([extent($rows), extent($columns), 0.2]);
 for (i = [0:$rows - 1])
     for (j = [0:$columns - 1])
         translate([$gutter + j * $distance, $gutter + i * $distance, 0])
