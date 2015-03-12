@@ -17,3 +17,5 @@ $wire_guide_distance = 5.5;
 $wire_guide_height = 2.5;
 
 function extent(holes) = (holes - 1) * $distance + 2 * $gutter;
+function snugly(diameter) = diameter / cos(180 / fragments(diameter)) + 2 * $snug_clearance;
+function fragments(diameter) = $fn > 0.0 ? max(3.0, $fn) : ceil(max(min(360.0 / $fa, diameter * PI / $fs), 5));
