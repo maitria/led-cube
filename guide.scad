@@ -22,6 +22,13 @@ module base(rows, columns) {
     cube([extent(rows), extent(columns), $height]);
 }
 
+module lead_guide() {
+    union() {
+        cube([2.5, 5, 1.5]);
+        translate([0, -7 -1.5, 0]) cube([2.5, 7, 1.5]);
+    }
+}
+
 module guide(rows, columns) {
     union() {
         difference() {
@@ -48,18 +55,12 @@ module guide(rows, columns) {
                 translate([$gutter + (i + 0.55) * $distance,
                            $gutter + j * $distance + snugly($led_diameter)/2,
                            $height - $wire_guide_height])
-                    union() {
-                        cube([2.5, 5, 1.5]);
-                        translate([0, -7 -1.5, 0]) cube([2.5, 7, 1.5]);
-                    }
+                    lead_guide();
         for (j = [0:columns - 1])
             translate([extent(rows) - 2.5,
                        $gutter + j * $distance + snugly($led_diameter)/2,
                        $height - $wire_guide_height])
-                union() {
-                    cube([2.5, 5, 1.5]);
-                    translate([0, -7 -1.5, 0]) cube([2.5, 7, 1.5]);
-                }
+                lead_guide();
     }
 }
 
