@@ -1,6 +1,6 @@
 
-$rows = 2;
-$columns = 3;
+$rows = 8;
+$columns = 8;
 $height = 8.5;
 $distance = 15;
 $gutter = 8;
