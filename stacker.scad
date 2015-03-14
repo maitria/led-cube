@@ -4,9 +4,34 @@ $fa = 0.1;
 
 include <config.scad>;
 
-$extra = 4;
+$extra = 12;
+$thickness = 6;
+$arm_width = 6;
+
+module guide_notch() {
+    difference() {
+        cube([$arm_width, 2 * $arm_width + 0.4, $thickness]);
+        translate([$arm_width, 0, 0]) cylinder(r = $arm_width, h = $thickness);
+        translate([$arm_width, 2 * $arm_width + 0.4, 0]) cylinder(r = $arm_width, h = $thickness);
+    }
+}
 
 difference() {
-	cube([extent($rows) + 2 * $extra, $height + $distance - $wire_guide_height, 6]);
-	translate([0, $height - $wire_guide_height, 0]) cube([extent($rows) - $gutter, 6, 6]);
+    cube([($rows - 1) * $distance + 2 * $extra, 2 * $arm_width + $distance, $thickness]);
+
+    translate([$extra - $arm_width, $arm_width, 0]) cube([($rows - 1) * $distance + ($extra - $arm_width), 0.2, $thickness]);
+    translate([$extra - $arm_width, $arm_width + $distance, 0]) cube([($rows - 1) * $distance + ($extra - $arm_width), 0.2, $thickness]);
+
+    translate([0, $arm_width/2, 0]) scale([1,0.5,1]) guide_notch();
+    translate([0, $arm_width/2 + $distance, 0]) scale([1,0.5,1]) guide_notch();
+
+    for (i = [0:$rows - 1])
+        translate([$extra + i * $distance, $arm_width, 0])
+            cylinder(d = 0.65, h = $thickness);
+    for (i = [0:$rows - 1])
+        translate([$extra + i * $distance, $arm_width + $distance, 0])
+            cylinder(d = 0.65, h = $thickness);
+
+    translate([$extra - $arm_width, 0, 0]) cube([3, 2, $thickness]);
+    translate([$extra - $arm_width, $distance + 2 * $arm_width - 2, 0]) cube([3, 2, $thickness]);
 }
