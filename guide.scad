@@ -24,8 +24,8 @@ module base(rows, columns) {
 
 module lead_guide() {
     union() {
-        cube([2.5, 5, 1.5]);
-        translate([0, -7 -1.5, 0]) cube([2.5, 7, 1.5]);
+        cube([2.5, 5, $wire_guide_height]);
+        translate([0, -7 -1.5, 0]) cube([2.5, 7, $wire_guide_height]);
     }
 }
 
