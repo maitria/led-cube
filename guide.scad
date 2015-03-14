@@ -33,9 +33,13 @@ module wire_channel(i) {
 
 module lead_channel(j) {
     translate([$gutter,
-               $gutter + j * $distance + snugly($flange_diameter)/2 - ($flange_diameter - $flange_flat_diameter) - snugly($lead_diameter),
+               $gutter + j * $distance + snugly($flange_diameter)/2 - ($flange_diameter - $flange_flat_diameter) - 2 * snugly($lead_diameter),
                $height - $wire_guide_height])
-        cube([extent($rows), snugly($lead_diameter), $wire_guide_height]);
+        difference() {
+            cube([extent($rows), 3 * snugly($lead_diameter), $wire_guide_height]);
+            scale([1, 1, $wire_guide_height]) rotate([0, 90, 0]) cylinder(h = extent($rows), d = 2 * snugly($lead_diameter));
+            translate([0, 3 * snugly($lead_diameter), 0]) scale([1, 1, $wire_guide_height]) rotate([0, 90, 0]) cylinder(h = extent($rows), d = 2 * snugly($lead_diameter));
+        }
 }
 
 module guide(rows, columns) {
