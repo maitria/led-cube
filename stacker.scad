@@ -7,7 +7,7 @@ include <config.scad>;
 $extra = 12;
 $thickness = 6;
 $arm_width = 6;
-$gap_width = 0.2;
+$gap_width = 0.4;
 
 module guide_notch() {
     scale([1,0.5,1])
