@@ -1,2 +1,4 @@
 *.stl
 *.gcode
+install-bin
+*.dSYM
