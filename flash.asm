@@ -1,5 +1,5 @@
 	processor 6502
-	org $f000
+	org $0400
 start:
 wait1:	dec 0
 	bne wait1
@@ -11,8 +11,3 @@ wait1:	dec 0
 	lsr
 	sta $c010
 	jmp wait1
-
-	org $fffa
-	.word start ; NMI
-	.word start ; RESET
-	.word start ; IRQ
