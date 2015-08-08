@@ -21,12 +21,14 @@ emit_layer subroutine
 
 	ldx #0
 .ebyte
-	lda cube_memory,x
+	lda cube_memory,x	; Send layer bytes (anodes)
 	jsr emit_byte
-
 	inx
 	cpx #8
 	bne .ebyte
+
+	lda #1			; Send layer enables (cathodes)
+	jsr emit_byte
 
 	lda #light_bit		; Light it back up
 	sta output_port
@@ -79,4 +81,3 @@ emit_bit_pause subroutine
 	bne .wait1
 	pla
 	rts
-
