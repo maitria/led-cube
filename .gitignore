@@ -3,4 +3,4 @@
 install-bin
 *.dSYM
 *.bin
-/flash.txt
+/cube.lst
