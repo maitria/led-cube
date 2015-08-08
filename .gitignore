@@ -2,3 +2,5 @@
 *.gcode
 install-bin
 *.dSYM
+*.bin
+/flash.txt
