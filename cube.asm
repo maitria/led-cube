@@ -14,7 +14,7 @@ start:
 output_port	equ $c010
 data_bit	equ $01
 shift_bit	equ $02
-light_bit	equ $04
+light_bit	equ $04		; !OE on shift register
 
 cube_memory	.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff	; Bit-mapped "video memory"
 		.byte $f0, $f0, $f0, $f0, $f0, $f0, $f0, $f0
@@ -31,7 +31,7 @@ current_offset	.byte $0
 emit_layer subroutine
 	sta .save_a
 	stx .save_x
-	lda #0			; Turn off lights
+	lda #light_bit		; Turn off lights
 	sta output_port
 
 	ldx current_offset
@@ -48,7 +48,7 @@ emit_layer subroutine
 	lda current_layer 	; Send layer enables (cathodes)
 	jsr emit_byte
 
-	lda #light_bit		; Light it back up
+	lda #0			; Light it back up
 	sta output_port
 
 	asl current_layer	; increment current layer
@@ -72,6 +72,7 @@ emit_byte subroutine
 	ldy #0
 .ebit
 	and #data_bit
+	ora #light_bit
 	sta output_port
 	jsr emit_bit_pause
 
