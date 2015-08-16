@@ -4,11 +4,6 @@
 
 start:
 	jsr emit_layer
-	jsr emit_bit_pause
-	jsr emit_bit_pause
-	jsr emit_bit_pause
-	jsr emit_bit_pause
-	jsr emit_bit_pause
 	jmp start
 
 output_port	equ $c010
@@ -17,13 +12,13 @@ shift_bit	equ $02
 light_bit	equ $04
 
 cube_memory	.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff	; Bit-mapped "video memory"
-		.byte $f0, $f0, $f0, $f0, $f0, $f0, $f0, $f0
-		.byte $f0, $f0, $f0, $f0, $f0, $f0, $f0, $f0
-		.byte $f0, $f0, $f0, $f0, $f0, $f0, $f0, $f0
-		.byte $f0, $f0, $f0, $f0, $f0, $f0, $f0, $f0
-		.byte $f0, $f0, $f0, $f0, $f0, $f0, $f0, $f0
-		.byte $f0, $f0, $f0, $f0, $f0, $f0, $f0, $f0
-		.byte $00, $00, $00, $00, $00, $00, $00, $00
+		.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
+		.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
+		.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
+		.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
+		.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
+		.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
+		.byte $ff, $ff, $ff, $ff, $ff, $ff, $ff, $ff
 
 current_layer	.byte $1
 current_offset	.byte $0
@@ -74,15 +69,12 @@ emit_byte subroutine
 .ebit
 	and #data_bit
 	sta output_port
-	jsr emit_bit_pause
 
 	ora #shift_bit
 	sta output_port
-	jsr emit_bit_pause
 
 	and #($ff - shift_bit)
 	sta output_port
-	jsr emit_bit_pause
 
 	lda .work_byte
 	lsr
@@ -96,16 +88,3 @@ emit_byte subroutine
 	rts
 .save_y		.byte
 .work_byte	.byte
-	
-emit_bit_pause subroutine
-	pha
-	lda #$ff
-	sta 0
-	sta 1
-.wait1
-	dec 0
-	bne .wait1
-	dec 1
-	bne .wait1
-	pla
-	rts
