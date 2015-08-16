@@ -36,6 +36,7 @@ emit_layer subroutine
 
 	ldx current_offset
 	txa
+	clc
 	adc #8
 	sta current_offset
 .ebyte
